@@ -48,67 +48,2483 @@ Any inquiries can be addressed to:
 	<Name>Exercise HTTP CoinMarketCap</Name>
 	<Description>Exercise HTTP CoinMarketCap DataMiner connector</Description>
 	<Version>1.0.0.1</Version>
-	<IntegrationID>DMS-DRV-</IntegrationID>
+	<IntegrationID>DMS-DRV-0</IntegrationID>
 	<Provider>Skyline Communications</Provider>
-	<Vendor></Vendor>
-	<VendorOID>1.3.6.1.4.1.8813.2.</VendorOID>
-	<DeviceOID></DeviceOID>
-	<ElementType></ElementType>
-	<Type relativeTimers="true">virtual</Type>
-	<Display defaultPage="General" pageOrder="General"/>
+	<Vendor>Exercise</Vendor>
+	<VendorOID>1.3.6.1.4.1.8813.2.0</VendorOID>
+	<DeviceOID>0</DeviceOID>
+	<ElementType>Virtual</ElementType>
+	<Type relativeTimers="true">http</Type>
+	<Display defaultPage="General" pageOrder="General;----------;Listing Overview;Listing Details;Listing Quotes;----------;Categories;Global Metrics" wideColumnPages=""/>
 	<SNMP includepages="true">auto</SNMP>
 
 	<Compliancies>
 		<CassandraReady>true</CassandraReady>
-		<MinimumRequiredVersion>10.1.0.0 - 9966</MinimumRequiredVersion>
+		<MinimumRequiredVersion>10.3.0.0 - 12752</MinimumRequiredVersion>
 	</Compliancies>
 
+	<Relations>
+		<Relation name="Data-Quote" path="1000;2000"/>
+	</Relations>
+	
 	<Params>
+		<!--API Key-->
+		<Param id="1" trending="false" save="true">
+			<Name>APIKey</Name>
+			<Description>API Key</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>API key for queries.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="51" setter="true">
+			<Name>APIKey</Name>
+			<Description>API Key</Description>
+			<Type>write</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>General</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="password">string</Type>
+			</Measurement>
+		</Param>
+		
+		<!--Pull Data Buttons-->
+		<Param id="10">
+			<Name>GetListings</Name>
+			<Type>write</Type>
+			<Information>
+				<Subtext>Get Listings</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Listing Overview</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+					<Position>
+						<Page>Listing Details</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+					<Position>
+						<Page>Listing Quotes</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Get Listings</Display>
+						<Value>0</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<Param id="30">
+			<Name>GetCryptocurrencyCategories</Name>
+			<Type>write</Type>
+			<Information>
+				<Subtext>Pulls the categories data from CMC.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Categories</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Get Categories</Display>
+						<Value>0</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		<Param id="40">
+			<Name>GetGlobalMetricsLatest</Name>
+			<Type>write</Type>
+			<Information>
+				<Subtext>Get listings for global metrics.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Get Global Metrics Latest</Display>
+						<Value>0</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		
+		<!--Listings-->
+		<Param id="100">
+			<Name>HTTPListingsStatusCode</Name>
+			<Description>HTTP Listings Status Code</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+		</Param>
+		<Param id="101">
+			<Name>HTTPListingsContent</Name>
+			<Description>HTTP Listings Content</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Measurement>
+				<Type lines="30">string</Type>
+			</Measurement>
+		</Param>
+		
+		<Param id="1000">
+			<Name>Listing</Name>
+			<Description>Listing</Description>
+			<Type>array</Type>
+			<ArrayOptions index="0">
+				<ColumnOption idx="0" pid="1001" type="retrieved" options=""/>
+				<ColumnOption idx="1" pid="1002" type="retrieved" options="" />
+				<ColumnOption idx="2" pid="1003" type="retrieved" options="" />
+				<ColumnOption idx="3" pid="1004" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="1005" type="retrieved" options="" />
+				<ColumnOption idx="5" pid="1006" type="retrieved" options="" />
+				<ColumnOption idx="6" pid="1007" type="retrieved" options="" />
+			</ArrayOptions>
+			<Information>
+				<Subtext>tableInformation</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Listing Details</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="tab=columns:1001|0-1004|3-1002|1-1003|2-1005|4-1006|5-1007|6,width:0-80-100-100-160-100-100,sort:STRING-INT|ASC-STRING-STRING-INT-INT-INT,lines:25,filter:true">table</Type>
+			</Measurement>
+		</Param>
+		<Param id="1001" trending="false">
+			<Name>ListingId</Name>
+			<Description>ID (Listing)</Description>
+			<Information>
+				<Subtext>ID of this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="1002" trending="false">
+			<Name>ListingName</Name>
+			<Description>Name (Listing)</Description>
+			<Information>
+				<Subtext>Name of this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="1003" trending="false">
+			<Name>ListingSymbol</Name>
+			<Description>Symbol (Listing)</Description>
+			<Information>
+				<Subtext>Symbol for this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals></Decimals>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="1004" trending="false">
+			<Name>ListingCMCRank</Name>
+			<Description>CMC Rank (Listing)</Description>
+			<Information>
+				<Subtext>CMC Rank of this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.9.7 CMC Rank has no units. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>1</Low>
+				</Range>
+			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="1005" trending="false">
+			<Name>ListingCirculatingSupply</Name>
+			<Description>Circulating Supply (Listing)</Description>
+			<Information>
+				<Subtext>Circulating supply of this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="1006" trending="false">
+			<Name>ListingTotalSupply</Name>
+			<Description>Total Supply (Listing)</Description>
+			<Information>
+				<Subtext>Total supply of this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="1007" trending="false">
+			<Name>ListingMaxSupply</Name>
+			<Description>Max Supply (Listing)</Description>
+			<Information>
+				<Subtext>Max supply of this listing.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+				<Exceptions>
+					<Exception id="1" value="-1">
+						<Display state="disabled">Not Available</Display>
+						<Value>-1</Value>
+					</Exception>
+					<Exception id="2" value="-2">
+						<Display state="disabled">Infinite</Display>
+						<Value>-2</Value>
+					</Exception>
+				</Exceptions>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		
+		<Param id="2000">
+			<Name>Quote</Name>
+			<Description>Quote</Description>
+			<Type>array</Type>
+			<ArrayOptions index="0">
+				<NamingFormat>,1002, (,2008,)</NamingFormat>
+				<ColumnOption idx="0" pid="2001" type="retrieved" options=""/>
+				<ColumnOption idx="1" pid="2002" type="retrieved" options="" />
+				<ColumnOption idx="2" pid="2003" type="retrieved" options="" />
+				<ColumnOption idx="3" pid="2004" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="2005" type="retrieved" options="" />
+				<ColumnOption idx="5" pid="2006" type="retrieved" options="" />
+				<ColumnOption idx="6" pid="2007" type="retrieved" options="" />
+				<ColumnOption idx="7" pid="2008" type="retrieved" options="" />
+				<ColumnOption idx="8" pid="2500" type="retrieved" options=";foreignKey=1000" />
+				<ColumnOption idx="9" pid="2599" type="displaykey" options="" />
+			</ArrayOptions>
+			<Information>
+				<Subtext>Quotes for currencies.</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Listing Quotes</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<!-- SuppressValidator 2.31.9 This table should not be sorted by its date(time) column. -->
+				<Type options="tab=columns:2001|0-2500|8-2599|9-2002|1-2003|2-2004|3-2005|4-2006|5-2007|6,width:0-0-160-100-80-80-80-200-100,sort:STRING-STRING-STRING-INT-INT-INT-INT-INT-STRING,lines:25,filter:true">table</Type>
+				<!-- /SuppressValidator 2.31.9 -->
+			</Measurement>
+		</Param>
+		<Param id="2001" trending="false">
+			<Name>QuoteId</Name>
+			<Description>ID (Quote)</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>This is the key used internally by DataMiner to identify the table entries.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="2002" trending="false">
+			<Name>QuotePrice</Name>
+			<Description>Price (Quote)</Description>
+			<Information>
+				<Subtext>Price (Quote)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="2003" trending="false">
+			<Name>QuotePercentChange1h</Name>
+			<Description>1H % (Quote)</Description>
+			<Information>
+				<Subtext>Percent change of this quote in the last 1 hour.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Units>%</Units>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="2004" trending="false">
+			<Name>QuotePercentChange24h</Name>
+			<Description>24H % (Quote)</Description>
+			<Information>
+				<Subtext>Percent change of this quote in the last 24 hours.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Units>%</Units>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="2005" trending="false">
+			<Name>QuotePercentChange7d</Name>
+			<Description>7D %  (Quote)</Description>
+			<Information>
+				<Subtext>Percent change of this quote in the last 7 days.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Units>%</Units>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="2006" trending="false">
+			<Name>QuoteMarketCap</Name>
+			<Description>Market Cap (Quote)</Description>
+			<Information>
+				<Subtext>Market cap.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="2007" trending="false">
+			<Name>QuoteLastUpdated</Name>
+			<Description>Last Updated (Quote)</Description>
+			<Information>
+				<Subtext>Last updated time for this quote.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<Decimals>8</Decimals>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type options="date">number</Type>
+			</Measurement>
+		</Param>
+		<Param id="2008" trending="false">
+			<Name>QuoteSymbol</Name>
+			<Description>Symbol (Quote)</Description>
+			<Information>
+				<Subtext>The symbol of the currency that this quote is expressed in.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<!-- SuppressValidator 2.7.5 This column is used in the display key. -->
+				<RTDisplay>true</RTDisplay>
+				<!-- /SuppressValidator 2.7.5 -->
+			</Display>
+			<Measurement>
+				<Type>table</Type>
+			</Measurement>
+		</Param>
+		<Param id="2500" trending="false">
+			<Name>QuoteCryptocurrencyId</Name>
+			<Description>Cryptocurrency ID (Quote)</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>
+					<![CDATA[Cryptocurrency ID for this quote.]]>
+				</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="2599" trending="false">
+			<Name>QuoteDisplayKey</Name>
+			<Description>Display Key (Quote)</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>This is the display key for this table.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		
+		<!--Categories-->
+		<Param id="300">
+			<Name>HTTPCategoriesStatusCode</Name>
+			<Description>HTTP Categories Status Code</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+		</Param>
+		<Param id="301" trending="false">
+			<Name>HTTPCategoriesContent</Name>
+			<Description>HTTP Categories Content</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Measurement>
+				<Type lines="30">string</Type>
+			</Measurement>
+		</Param>
+		
+		<Param id="3000">
+			<Name>Categories</Name>
+			<Description>Categories</Description>
+			<Type>array</Type>
+			<ArrayOptions index="0">
+				<ColumnOption idx="0" pid="3001" type="retrieved" options=""/>
+				<ColumnOption idx="1" pid="3002" type="retrieved" options="" />
+				<ColumnOption idx="2" pid="3003" type="retrieved" options="" />
+				<ColumnOption idx="3" pid="3004" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="3005" type="retrieved" options="" />
+				<ColumnOption idx="5" pid="3006" type="retrieved" options="" />
+				<ColumnOption idx="6" pid="3007" type="retrieved" options="" />
+				<ColumnOption idx="7" pid="3008" type="retrieved" options="" />
+				<ColumnOption idx="8" pid="3009" type="retrieved" options="" />
+				<ColumnOption idx="9" pid="3010" type="retrieved" options="" />
+				<ColumnOption idx="10" pid="3011" type="retrieved" options="" />
+				<ColumnOption idx="11" pid="3500" type="retrieved" options="" />
+			</ArrayOptions>
+			<Information>
+				<Subtext>Cryptocurrency categories.</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Categories</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<!-- SuppressValidator 2.31.9 This table should not be sorted by its date(time) column. -->
+				<Type options="tab=columns:3500|11-3001|0-3002|1-3003|2-3004|3-3005|4-3006|5-3007|6-3008|7-3009|8-3010|9-3011|10,width:100-0-200-200-200-160-160-120-160-100-160-160,sort:STRING-STRING-STRING-STRING-STRING-INT-INT-INT-INT-INT-INT-INT,lines:25,filter:true">table</Type>
+				<!-- /SuppressValidator 2.31.9 -->
+			</Measurement>
+		</Param>
+		<Param id="3001" trending="false">
+			<Name>CategoriesId</Name>
+			<Description>ID (Categories)</Description>
+			<Information>
+				<Subtext>This is the key used internally by DataMiner to identify the table entries.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="3002" trending="false">
+			<Name>CategoriesName</Name>
+			<Description>Name (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[The name of the category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="3003" trending="false">
+			<Name>CategoriesTitle</Name>
+			<Description>Title (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[The title of the category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="3004" trending="false">
+			<Name>CategoriesDescription</Name>
+			<Description>Description (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[The description of the category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="3005" trending="false">
+			<Name>CategoriesNumTokens</Name>
+			<Description>Number of Tokens (Categories)</Description>
+			<Information>
+				<Subtext>Number of tokens for this category.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3006" trending="false">
+			<Name>CategoriesAvgPriceChange</Name>
+			<Description>Avg Price Change (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Average price change of coins within this category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded.
+ -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3007" trending="false">
+			<Name>CategoriesMarketCap</Name>
+			<Description>Market Cap (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Market cap of coins within this category]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3008" trending="false">
+			<Name>CategoriesMarketCapChange</Name>
+			<Description>Market Cap Change (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Market cap change of coins within this category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3009" trending="false">
+			<Name>CategoriesVolume</Name>
+			<Description>Volume (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Volume of coins within this category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+				<Range>
+					<Low>0</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3010" trending="false">
+			<Name>CategoriesVolumeChange</Name>
+			<Description>Volume Change (Categories)</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Volume change of coins within this category.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3011" trending="false">
+			<Name>CategoriesLastUpdated</Name>
+			<Description>Last Updated (Categories)</Description>
+			<Information>
+				<Subtext>Last updated time for this category.</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<Decimals>8</Decimals>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type options="date">number</Type>
+			</Measurement>
+		</Param>
+		<Param id="3500">
+			<Name>CategoriesRefreshButton</Name>
+			<Description>Refresh</Description>
+			<Type>write</Type>
+			<Information>
+				<Subtext>Refreshes this category.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type width="110">button</Type>
+				<Discreets>
+					<Discreet>
+						<Display>Refresh</Display>
+						<Value>0</Value>
+					</Discreet>
+				</Discreets>
+			</Measurement>
+		</Param>
+		
+		<!--Single Category-->
+		<Param id="349">
+			<Name>HTTPCategoryRequestURL</Name>
+			<Description>HTTP Category Request URL</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+		</Param>
+		<Param id="350">
+			<Name>HTTPCategoryStatusCode</Name>
+			<Description>HTTP Category Status Code</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+		</Param>
+		<Param id="351" trending="false">
+			<Name>HTTPCategoryContent</Name>
+			<Description>HTTP Category Content</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Measurement>
+				<Type lines="30">string</Type>
+			</Measurement>
+		</Param>
+		
+		
+		<!--Global Metrics Latest-->
+		<Param id="400">
+			<Name>HTTPGlobalMetricsLatestStatusCode</Name>
+			<Description>HTTP Global Metrics Latest Status Code</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+		</Param>
+		<Param id="401">
+			<Name>HTTPGlobalMetricsLatestContent</Name>
+			<Description>HTTP Global Metrics Latest Content</Description>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Measurement>
+				<Type lines="30">string</Type>
+			</Measurement>
+		</Param>
+		
+		<Param id="450" trending="false">
+			<Name>GlobalMetricsLatestActiveCryptocurrencies</Name>
+			<Description>Active Cryptocurrencies</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Count of active cryptocurrencies tracked by CoinMarketCap. This includes all cryptocurrencies with a listing_status of "active" or "listed" as returned from CMC's /cryptocurrency/map call.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>2</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="451" trending="false">
+			<Name>GlobalMetricsLatestTotalCryptocurrencies</Name>
+			<Description>Total Cryptocurrencies</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Count of all cryptocurrencies tracked by CoinMarketCap. This includes "inactive" listing_status cryptocurrencies.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>3</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="452" trending="false">
+			<Name>GlobalMetricsLatestActiveMarketPairs</Name>
+			<Description>Active Market Pairs</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Count of active market pairs tracked by CoinMarketCap across all exchanges.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>4</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="453" trending="false">
+			<Name>GlobalMetricsLatestActiveExchanges</Name>
+			<Description>Active Exchanges</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Count of active exchanges tracked by CoinMarketCap. This includes all exchanges with a listing_status of "active" or "listed" as returned by CMC/s /exchange/map call.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>5</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="454" trending="false">
+			<Name>GlobalMetricsLatestTotalExchanges</Name>
+			<Description>Total Exchanges</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Count of all exchanges tracked by CoinMarketCap. This includes "inactive" listing_status exchanges.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>6</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<!-- /SuppressValidator 2.9.7 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="455" trending="false">
+			<Name>GlobalMetricsLatestETHDominance</Name>
+			<Description>ETH Dominance</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Ethereum's market dominance percentage by market cap.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>15</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="456" trending="false">
+			<Name>GlobalMetricsLatestBTCDominance</Name>
+			<Description>BTC Dominance</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Bitcoin's market dominance percentage by market cap.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>10</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="457" trending="false">
+			<Name>GlobalMetricsLatestETHDominanceYesterday</Name>
+			<Description>ETH Dominance Yesterday</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Ethereum's market dominance percentage by market cap yesterday.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>16</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+				<Units>%</Units>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="458" trending="false">
+			<Name>GlobalMetricsLatestBTCDominanceYesterday</Name>
+			<Description>BTC Dominance Yesterday</Description>
+			<Information>
+				<Subtext>
+					<![CDATA[Bitcoin's market dominance percentage by market cap yesterday.]]>
+				</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+					<High>100</High>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>11</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+				<Units>%</Units>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="459" trending="false">
+			<Name>GlobalMetricsLatestETHDominance24hPercentageChange</Name>
+			<Description>ETH Dominance Percentage Change (24H)</Description>
+			<Information>
+				<Subtext>ETH Dominance 24H Percentage Change</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>17</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="460" trending="false">
+			<Name>GlobalMetricsLatestBTCDominance24hPercentageChange</Name>
+			<Description>BTC Dominance Percentage Change (24H)</Description>
+			<Information>
+				<Subtext>BTC Dominance 24H Percentage Change</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>12</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="461" trending="false">
+			<Name>GlobalMetricsLatestDeFiVolume24h</Name>
+			<Description>Defi Volume (24H)</Description>
+			<Information>
+				<Subtext>DeFi Volume (24H)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>20</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="462" trending="false">
+			<Name>GlobalMetricsLatestDeFiVolume24hReported</Name>
+			<Description>Defi Volume Reported (24H)</Description>
+			<Information>
+				<Subtext>DeFi Volume 24H Reported</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>21</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="463" trending="false">
+			<Name>GlobalMetricsLatestDeFiMarketCap</Name>
+			<Description>Defi Market Cap</Description>
+			<Information>
+				<Subtext>DeFi Market Cap</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>22</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="464" trending="false">
+			<Name>GlobalMetricsLatestDeFi24hPercentageChange</Name>
+			<Description>Defi Percentage Change (24H)</Description>
+			<Information>
+				<Subtext>DeFi Percentage Change (24H)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>23</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="465" trending="false">
+			<Name>GlobalMetricsLatestStablecoinVolume24h</Name>
+			<Description>Stablecoin Volume (24H)</Description>
+			<Information>
+				<Subtext>Stablecoin Volume (24H)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>26</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="466" trending="false">
+			<Name>GlobalMetricsLatestStablecoinVolume24hReported</Name>
+			<Description>Stablecoin Volume Reported (24H)</Description>
+			<Information>
+				<Subtext>Stablecoin Volume Reported (24H)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>27</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="467" trending="false">
+			<Name>GlobalMetricsLatestStablecoinMarketCap</Name>
+			<Description>Stablecoin Market Cap</Description>
+			<Information>
+				<Subtext>Stablecoin Market Cap</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>28</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="468" trending="false">
+			<Name>GlobalMetricsLatestStablecoin24hPercentageChange</Name>
+			<Description>Stablecoin 24H Percentage Change</Description>
+			<Information>
+				<Subtext>Stablecoin 24H Percentage Change</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>29</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="469" trending="false">
+			<Name>GlobalMetricsLatestDerivativesVolume24h</Name>
+			<Description>Derivatives Volume (24H)</Description>
+			<Information>
+				<Subtext>Derivatives Volume (24H)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>32</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="470" trending="false">
+			<Name>GlobalMetricsLatestDerivativesVolume24hReported</Name>
+			<Description>Derivatives Volume Reported (24H)</Description>
+			<Information>
+				<Subtext>Derivatives Volume Reported (24H)</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>0</Low>
+				</Range>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>33</Row>
+					</Position>
+				</Positions>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="471" trending="false">
+			<Name>GlobalMetricsLatestDerivatives24hPercentageChange</Name>
+			<Description>Derivatives Percentage Change (24H)</Description>
+			<Information>
+				<Subtext>Derivatives 24H Percentage Change</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>34</Row>
+					</Position>
+				</Positions>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="472" trending="false">
+			<Name>GlobalMetricsLatestTotalCryptoDexCurrencies</Name>
+			<Description>Total Crypto Dex Currencies</Description>
+			<Information>
+				<Subtext>Total Crypto Dex Currencies</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="473" trending="false">
+			<Name>GlobalMetricsLatestTodayIncrementalCryptoNumber</Name>
+			<Description>Today Incremental Crypto Number</Description>
+			<Information>
+				<Subtext>Today Incremental Crypto Number</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="474" trending="false">
+			<Name>GlobalMetricsLatestPast24hIncrementalCryptoNumber</Name>
+			<Description>Past 24H Incremental Crypto Number</Description>
+			<Information>
+				<Subtext>Past 24H Incremental Crypto Number</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="475" trending="false">
+			<Name>GlobalMetricsLatestPast7dIncrementalCryptoNumber</Name>
+			<Description>Past 7D Incremental Crypto Number</Description>
+			<Information>
+				<Subtext>Past 7D Incremental Crypto Number</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="476" trending="false">
+			<Name>GlobalMetricsLatestPast30dIncrementalCryptoNumber</Name>
+			<Description>Past 30D Incremental Crypto Number</Description>
+			<Information>
+				<Subtext>Past 30D Incremental Crypto Number</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="477" trending="false">
+			<Name>GlobalMetricsLatestTodayChangePercent</Name>
+			<Description>Today Change Percent</Description>
+			<Information>
+				<Subtext>Today Change Percent</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="478" trending="false">
+			<Name>GlobalMetricsLatestTrackedYearlyNumberMaxIncrementalNumber</Name>
+			<Description>Tracked Yearly Number Max Incremental Number</Description>
+			<Information>
+				<Subtext>Tracked Yearly Number Max Incremental Number</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="479" trending="false">
+			<Name>GlobalMetricsLatestTrackedYearlyNumberMinIncrementalNumber</Name>
+			<Description>Tracked Yearly Number Min Incremental Number</Description>
+			<Information>
+				<Subtext>Tracked Yearly Number Min Incremental Number</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="480" trending="false">
+			<Name>GlobalMetricsLatestTrackedYearlyNumberMaxIncrementalDate</Name>
+			<Description>Tracked Yearly Number Max Incremental Date</Description>
+			<Information>
+				<Subtext>Tracked Yearly Number Max Incremental Date</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="481" trending="false">
+			<Name>GlobalMetricsLatestTrackedYearlyNumberMinIncrementalDate</Name>
+			<Description>Tracked Yearly Number Min Incremental Date</Description>
+			<Information>
+				<Subtext>Tracked Yearly Number Min Incremental Date</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>false</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="482" trending="false">
+			<Name>GlobalMetricsLatestLastUpdated</Name>
+			<Description>Last Updated</Description>
+			<Information>
+				<Subtext>Last Updated</Subtext>
+			</Information>
+			<Type>read</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<Decimals>8</Decimals>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>7</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="date">number</Type>
+			</Measurement>
+		</Param>
+		
+		<!--Global Metrics Titles-->
+		<Param id="410">
+			<Name>Title_Begin_Overview</Name>
+			<Description>Overview</Description>
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>0</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="begin">title</Type>
+			</Measurement>
+		</Param>
+		<Param id="411">
+			<Name>Title_Begin_BTC</Name>
+			<Description>BTC</Description>
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>9</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="begin">title</Type>
+			</Measurement>
+		</Param>
+		<Param id="412">
+			<Name>Title_Begin_ETH</Name>
+			<Description>ETH</Description>
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>14</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="begin">title</Type>
+			</Measurement>
+		</Param>
+		<Param id="413">
+			<Name>Title_Begin_DeFi</Name>
+			<!-- SuppressValidator 2.14.7 This is the typical styling for this word.-->
+			<Description>DeFi</Description>
+			<!-- /SuppressValidator 2.14.7 -->
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>19</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="begin">title</Type>
+			</Measurement>
+		</Param>
+		<Param id="414">
+			<Name>Title_Begin_Stablecoin</Name>
+			<Description>Stablecoin</Description>
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>25</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="begin">title</Type>
+			</Measurement>
+		</Param>
+		<Param id="415">
+			<Name>Title_Begin_Derivatives</Name>
+			<Description>Derivatives</Description>
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>31</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="begin">title</Type>
+			</Measurement>
+		</Param>
+		
+		<!--Listing Display-->
+		<Param id="8000">
+			<Name>ListingUSD</Name>
+			<Description>Listing [USD]</Description>
+			<Type>array</Type>
+			<ArrayOptions index="0">
+				<ColumnOption idx="0" pid="8001" type="retrieved" options=""/>
+				<ColumnOption idx="1" pid="8002" type="retrieved" options="" />
+				<ColumnOption idx="2" pid="8003" type="retrieved" options="" />
+				<ColumnOption idx="3" pid="8004" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="8005" type="retrieved" options="" />
+				<ColumnOption idx="5" pid="8006" type="retrieved" options="" />
+				<ColumnOption idx="6" pid="8007" type="retrieved" options="" />
+				<ColumnOption idx="7" pid="8008" type="retrieved" options="" />
+				<ColumnOption idx="8" pid="8009" type="retrieved" options="" />
+				<ColumnOption idx="9" pid="8010" type="retrieved" options="" />
+			</ArrayOptions>
+			<Information>
+				<Subtext>Display of listings in USD.</Subtext>
+			</Information>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Positions>
+					<Position>
+						<Page>Listing Overview</Page>
+						<Column>0</Column>
+						<Row>1</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="tab=columns:8001|0-8002|1-8003|2-8004|3-8005|4-8006|5-8007|6-8008|7-8009|8-8010|9,width:0-80-100-160-80-80-80-160-160-160,sort:STRING-INT-STRING-STRING-STRING-STRING-STRING-STRING-STRING-STRING,lines:25,filter:true">table</Type>
+			</Measurement>
+		</Param>
+		<Param id="8001" trending="false">
+			<Name>ListingUSDId</Name>
+			<Description>ID (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>This is the key used internally by DataMiner to identify the table entries.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="8002" trending="false">
+			<Name>ListingUSDCMCRank</Name>
+			<Description>CMC Rank (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Rank of this cryptocurrency on CMC.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Range>
+					<Low>1</Low>
+				</Range>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="8003" trending="false">
+			<Name>ListingUSDName</Name>
+			<Description>Name (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Name of the cryptocurrency.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="8004" trending="false">
+			<Name>ListingUSDPrice</Name>
+			<Description>Price (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Price of the cryptocurrency in USD.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="8005" trending="false">
+			<Name>ListingUSDPercentChange1h</Name>
+			<Description>1H % (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Change in price in USD in the last 1H.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="8006" trending="false">
+			<Name>ListingUSDPercentChange24h</Name>
+			<Description>24H % (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Change in price in USD in the last 24H.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="8007" trending="false">
+			<Name>ListingUSDPercentChange7D</Name>
+			<Description>7D % (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>Change in price in USD in the last 7D.</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<Units>%</Units>
+				<Decimals>3</Decimals>
+			</Display>
+			<Measurement>
+				<Type>number</Type>
+			</Measurement>
+		</Param>
+		<Param id="8008" trending="false">
+			<Name>ListingUSDMarketCap</Name>
+			<Description>Market Cap (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>
+					The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market.
+					
+					Market Cap = Current Price x Circulating Supply.
+				</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="8009" trending="false">
+			<Name>ListingUSDVolume</Name>
+			<Description>Volume (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>
+					A measure of how much of a cryptocurrency was traded in the last 24 hours in USD.
+				</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		<Param id="8010" trending="false">
+			<Name>ListingUSDCirculatingSupply</Name>
+			<Description>Circulating Supply (Listing [USD])</Description>
+			<Type>read</Type>
+			<Information>
+				<Subtext>
+					The amount of coins that are circulating in the market and are in public hands. It is analogous to the flowing shares in the stock market.
+				</Subtext>
+			</Information>
+			<Interprete>
+				<RawType>other</RawType>
+				<Type>string</Type>
+				<LengthType>next param</LengthType>
+			</Interprete>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+			</Display>
+			<Measurement>
+				<Type>string</Type>
+			</Measurement>
+		</Param>
+		
+		<!--Fixed-->
 		<Param id="2">
-			<Name>AfterStartup</Name>
-			<Description>After Startup</Description>
-			<Type>dummy</Type>
+			<Name>DataNotAvailableFixed</Name>
+			<Description>Data Not Available Fixed</Description>
+			<Type>fixed</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>fixed</LengthType>
+				<Length>2</Length>
+				<Value>-1</Value>
+			</Interprete>
+		</Param>
+		<Param id="3">
+			<Name>InfinityFixed</Name>
+			<Description>Infinity Fixed</Description>
+			<Type>fixed</Type>
+			<Interprete>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
+				<LengthType>fixed</LengthType>
+				<Length>2</Length>
+				<Value>-2</Value>
+			</Interprete>
+		</Param>
+		<Param id="99">
+			<Name>Title_End_Generic</Name>
+			<Type>fixed</Type>
+			<Display>
+				<RTDisplay>true</RTDisplay>
+				<!--Note that by adding multiple positions,
+					the same title end can be re-used for closing different group boxes.
+					Indeed, Cube only uses the positions in order to potentially group a title begin to a title end.-->
+				<Positions>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>13</Row>
+					</Position>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>8</Row>
+					</Position>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>30</Row>
+					</Position>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>18</Row>
+					</Position>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>24</Row>
+					</Position>
+					<Position>
+						<Page>Global Metrics</Page>
+						<Column>0</Column>
+						<Row>35</Row>
+					</Position>
+				</Positions>
+			</Display>
+			<Measurement>
+				<Type options="end">title</Type>
+			</Measurement>
 		</Param>
 	</Params>
 
 	<QActions>
-		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile" />
-		<QAction id="2" name="After Startup" encoding="csharp" triggers="2" />
+		<QAction id="1" name="Precompiled Code" encoding="csharp" options="precompile">
+		</QAction>
+		<QAction id="101" name="ParseListings" encoding="csharp" triggers="101">
+		</QAction>
+		<QAction id="301" name="ParseCategories" encoding="csharp" triggers="301">
+		</QAction>
+		<QAction id="401" name="ParseGlobalMetricsLatest" encoding="csharp" triggers="401">
+		</QAction>
+		<QAction id="351" name="ParseCategory" encoding="csharp" triggers="351">
+		</QAction>
+		<QAction id="3500" name="RefreshCategory" encoding="csharp" triggers="3500" row="true">
+		</QAction>
 	</QActions>
-
+	
 	<Groups>
-		<Group id="2">
-			<Name>After Startup</Name>
-			<Description>After Startup</Description>
-			<Type>poll action</Type>
+		<Group id="100">
+			<Name>GetCryptocurrencyListings</Name>
+			<Description>Get Cryptocurrency Listings</Description>
+			<Type>poll</Type>
 			<Content>
-				<Action>2</Action>
+				<Session>100</Session>
+			</Content>
+		</Group>
+		<Group id="300">
+			<Name>GetCryptocurrencyCategories</Name>
+			<Description>Get Cryptocurrency Categories</Description>
+			<Type>poll</Type>
+			<Content>
+				<Session>300</Session>
+			</Content>
+		</Group>
+		<Group id="350">
+			<Name>GetCryptocurrencyCategory</Name>
+			<Description>Get Cryptocurrency Category</Description>
+			<Type>poll</Type>
+			<Content>
+				<Session>350</Session>
+			</Content>
+		</Group>
+		<Group id="400">
+			<Name>GetGlobalMetricsLatest</Name>
+			<Description>Get Global Metrics Latest</Description>
+			<Type>poll</Type>
+			<Content>
+				<Session>400</Session>
 			</Content>
 		</Group>
 	</Groups>
 
 	<Triggers>
 		<Trigger id="1">
-			<Name>After Startup</Name>
-			<On>protocol</On>
-			<Time>after startup</Time>
+			<Name>GetListings</Name>
+			<On id="10">parameter</On>
+			<Time>change</Time>
 			<Type>action</Type>
 			<Content>
-				<Id>1</Id>
+				<Id>100</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="3">
+			<Name>GetCryptocurrencyCategories</Name>
+			<On id="30">parameter</On>
+			<Time>change</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>300</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="4">
+			<Name>GetGlobalMetricsLatest</Name>
+			<On id="40">parameter</On>
+			<Time>change</Time>
+			<Type>action</Type>
+			<Content>
+				<Id>400</Id>
+			</Content>
+		</Trigger>
+		<Trigger id="350">
+			<Name>GetCategory</Name>
+			<Type>action</Type>
+			<Content>
+				<Id>350</Id>
 			</Content>
 		</Trigger>
 	</Triggers>
 
 	<Actions>
-		<Action id="1">
-			<Name>After Startup Group</Name>
-			<On id="2">group</On>
-			<Type>execute next</Type>
+		<Action id="100">
+			<Name>GetListings</Name>
+			<On id="100">group</On>
+			<Type>execute one</Type>
 		</Action>
-		<Action id="2">
-			<Name>After Startup QAction</Name>
-			<On id="2">parameter</On>
-			<Type>run actions</Type>
+		<Action id="300">
+			<Name>GetCryptocurrencyCategories</Name>
+			<On id="300">group</On>
+			<Type>execute one</Type>
+		</Action>
+		<Action id="350">
+			<Name>GetCryptocurrencyCategory</Name>
+			<On id="350">group</On>
+			<Type>execute</Type>
+		</Action>
+		<Action id="400">
+			<Name>GetGlobalMetricsLatest</Name>
+			<On id="400">group</On>
+			<Type>execute one</Type>
 		</Action>
 	</Actions>
 
@@ -136,8 +2552,74 @@ Any inquiries can be addressed to:
 		</Timer>
 	</Timers>
 
-	<PortSettings>
+	<PortSettings name="HTTP Connection">
+		<BusAddress>
+			<Disabled>true</Disabled>
+		</BusAddress>
+		<IPport>
+			<DefaultValue>443</DefaultValue>
+			<Disabled>true</Disabled>
+		</IPport>
 	</PortSettings>
+
+	<HTTP>
+		<Session id="100" name="Get Cryptocurrency Listings">
+			<Connection id="100" name="Get Cryptocurrency Listings">
+				<Request verb="GET" url="v1/cryptocurrency/listings/latest">
+					<Headers>
+						<!-- SuppressValidator 8.3.1 Header key required for API -->
+						<Header key="X-CMC_PRO_API_KEY" pid="1"/>
+						<!-- /SuppressValidator 8.3.1 -->
+					</Headers>
+				</Request>
+				<Response statusCode="100">
+					<Content pid="101"></Content>
+				</Response>
+			</Connection>
+		</Session>
+		<Session id="300" name="Get Cryptocurrency Categories">
+			<Connection id="300" name="Get Cryptocurrency Categories">
+				<Request verb="GET" url="/v1/cryptocurrency/categories">
+					<Headers>
+						<!-- SuppressValidator 8.3.1 Header key required for API -->
+						<Header key="X-CMC_PRO_API_KEY" pid="1"/>
+						<!-- /SuppressValidator 8.3.1 -->
+					</Headers>
+				</Request>
+				<Response statusCode="300">
+					<Content pid="301"></Content>
+				</Response>
+			</Connection>
+		</Session>
+		<Session id="350" name="Get Cryptocurrency Category">
+			<Connection id="350" name="Get Cryptocurrency Category">
+				<Request verb="GET" pid="349">
+					<Headers>
+						<!-- SuppressValidator 8.3.1 Header key required for API -->
+						<Header key="X-CMC_PRO_API_KEY" pid="1"/>
+						<!-- /SuppressValidator 8.3.1 -->
+					</Headers>
+				</Request>
+				<Response statusCode="350">
+					<Content pid="351"></Content>
+				</Response>
+			</Connection>
+		</Session>
+		<Session id="400" name="Get Global Metrics Latest">
+			<Connection id="400" name="Get Global Metrics Latest">
+				<Request verb="GET" url="/v1/global-metrics/quotes/latest">
+					<Headers>
+						<!-- SuppressValidator 8.3.1 Header key required for API -->
+						<Header key="X-CMC_PRO_API_KEY" pid="1"/>
+						<!-- /SuppressValidator 8.3.1 -->
+					</Headers>
+				</Request>
+				<Response statusCode="400">
+					<Content pid="401"></Content>
+				</Response>
+			</Connection>
+		</Session>
+	</HTTP>
 
 	<VersionHistory>
 		<Branches>

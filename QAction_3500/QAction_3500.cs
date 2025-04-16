@@ -1,12 +1,9 @@
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
 
 using Skyline.DataMiner.Scripting;
 
 /// <summary>
-/// DataMiner QAction Class: After Startup.
+/// DataMiner QAction Class: RefreshCategory.
 /// </summary>
 public static class QAction
 {
@@ -14,11 +11,14 @@ public static class QAction
     /// The QAction entry point.
     /// </summary>
     /// <param name="protocol">Link with SLProtocol process.</param>
-    public static void Run(SLProtocol protocol)
+    public static void Run(SLProtocolExt protocol)
     {
         try
         {
-
+            var refreshedId = protocol.RowKey();
+            var httpRequestUrl = $"v1/cryptocurrency/category?id={refreshedId}";
+            protocol.Httpcategoryrequesturl_349 = httpRequestUrl;
+            protocol.CheckTrigger(350); // Hard-coded trigger ID.
         }
         catch (Exception ex)
         {
