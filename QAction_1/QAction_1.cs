@@ -1,16 +1,16 @@
-namespace Skyline.Protocol
-{
-    using System;
-    using Newtonsoft.Json;
-    using Skyline.DataMiner.Scripting;
+using System;
+using Newtonsoft.Json;
+using Skyline.DataMiner.Scripting;
 
+namespace QAction_1
+{
     public static class CMCUtils
     {
         public static CategoriesQActionRow ToQActionRow(Category category)
         {
             return new CategoriesQActionRow
             {
-                Categoriesid_3001 = category.id,
+                Categoriesid_3001 = category.Id,
                 Categoriesname_3002 = category.Name,
                 Categoriestitle_3003 = category.Title,
                 Categoriesdescription_3004 = category.Description,
@@ -27,7 +27,7 @@ namespace Skyline.Protocol
         public sealed class Category
         {
             [JsonProperty("id")]
-            public string id { get; set; }
+            public string Id { get; set; }
 
             [JsonProperty("name")]
             public string Name { get; set; }
@@ -79,6 +79,21 @@ namespace Skyline.Protocol
 
             [JsonProperty("notice")]
             public string Notice { get; set; }
+        }
+
+        public class CMCException : Exception
+        {
+            public CMCException()
+            {
+            }
+
+            public CMCException(string message) : base(message)
+            {
+            }
+
+            public CMCException(string message, Exception innerException) : base(message, innerException)
+            {
+            }
         }
     }
 }

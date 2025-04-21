@@ -4,19 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
-
 using Skyline.DataMiner.Scripting;
 using Skyline.DataMiner.Utils.Net.Http;
 using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
-using static Skyline.Protocol.CMCUtils;
+using static QAction_1.CMCUtils;
 
 /// <summary>
 /// DataMiner QAction Class: ParseResponse.
 /// </summary>
 public static class QAction
 {
-    private static double notAvailableValue = -1;
-    private static double infiniteValue = -2;
+    private static double notAvailableValue;
+    private static double infiniteValue;
 
     /// <summary>
     /// The QAction entry point.
@@ -29,7 +28,7 @@ public static class QAction
             var httpStatusLine = SLHttpStatusLine.Parse((string)protocol.Httplistingsstatuscode_100);
             if (httpStatusLine.StatusCode != SLHttpStatusCode.OK)
             {
-                return;
+                throw new CMCException($"Received invalid status code {httpStatusLine.StatusCode}");
             }
 
             notAvailableValue = (double)protocol.Datanotavailablefixed__fixed;

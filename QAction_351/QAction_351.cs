@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Skyline.DataMiner.Scripting;
 using Skyline.DataMiner.Utils.Net.Http;
 using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
-using static Skyline.Protocol.CMCUtils;
+using static QAction_1.CMCUtils;
 
 /// <summary>
 /// DataMiner QAction Class: ParseCategory.
@@ -21,7 +21,7 @@ public static class QAction
             var httpStatusLine = SLHttpStatusLine.Parse((string)protocol.Httpcategorystatuscode_350);
             if (httpStatusLine.StatusCode != SLHttpStatusCode.OK)
             {
-                return;
+                throw new CMCException($"Received invalid status code {httpStatusLine.StatusCode}");
             }
 
             var responseJson = (string)protocol.Httpcategorycontent_351;

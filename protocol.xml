@@ -234,9 +234,6 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
-			<Measurement>
-				<Type lines="30">string</Type>
-			</Measurement>
 		</Param>
 		
 		<Param id="1000">
@@ -248,9 +245,9 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="1" pid="1002" type="retrieved" options="" />
 				<ColumnOption idx="2" pid="1003" type="retrieved" options="" />
 				<ColumnOption idx="3" pid="1004" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="1005" type="retrieved" options="" />
-				<ColumnOption idx="5" pid="1006" type="retrieved" options="" />
-				<ColumnOption idx="6" pid="1007" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="1005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="1006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="6" pid="1007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>tableInformation</Subtext>
@@ -351,7 +348,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="1005" trending="false">
+		<Param id="1005" trending="true">
 			<Name>ListingCirculatingSupply</Name>
 			<Description>Circulating Supply (Listing)</Description>
 			<Information>
@@ -363,6 +360,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -373,7 +373,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="1006" trending="false">
+		<Param id="1006" trending="true">
 			<Name>ListingTotalSupply</Name>
 			<Description>Total Supply (Listing)</Description>
 			<Information>
@@ -385,6 +385,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -395,7 +398,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="1007" trending="false">
+		<Param id="1007" trending="true">
 			<Name>ListingMaxSupply</Name>
 			<Description>Max Supply (Listing)</Description>
 			<Information>
@@ -417,6 +420,9 @@ Any inquiries can be addressed to:
 					</Exception>
 				</Exceptions>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -435,11 +441,11 @@ Any inquiries can be addressed to:
 			<ArrayOptions index="0">
 				<NamingFormat>,1002, (,2008,)</NamingFormat>
 				<ColumnOption idx="0" pid="2001" type="retrieved" options=""/>
-				<ColumnOption idx="1" pid="2002" type="retrieved" options="" />
-				<ColumnOption idx="2" pid="2003" type="retrieved" options="" />
-				<ColumnOption idx="3" pid="2004" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="2005" type="retrieved" options="" />
-				<ColumnOption idx="5" pid="2006" type="retrieved" options="" />
+				<ColumnOption idx="1" pid="2002" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="2" pid="2003" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="3" pid="2004" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="4" pid="2005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="2006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="6" pid="2007" type="retrieved" options="" />
 				<ColumnOption idx="7" pid="2008" type="retrieved" options="" />
 				<ColumnOption idx="8" pid="2500" type="retrieved" options=";foreignKey=1000" />
@@ -483,7 +489,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="2002" trending="false">
+		<Param id="2002" trending="true">
 			<Name>QuotePrice</Name>
 			<Description>Price (Quote)</Description>
 			<Information>
@@ -495,6 +501,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -506,7 +515,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="2003" trending="false">
+		<Param id="2003" trending="true">
 			<Name>QuotePercentChange1h</Name>
 			<Description>1H % (Quote)</Description>
 			<Information>
@@ -518,6 +527,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -531,7 +543,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="2004" trending="false">
+		<Param id="2004" trending="true">
 			<Name>QuotePercentChange24h</Name>
 			<Description>24H % (Quote)</Description>
 			<Information>
@@ -543,6 +555,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -556,7 +571,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="2005" trending="false">
+		<Param id="2005" trending="true">
 			<Name>QuotePercentChange7d</Name>
 			<Description>7D %  (Quote)</Description>
 			<Information>
@@ -568,6 +583,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -581,7 +599,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="2006" trending="false">
+		<Param id="2006" trending="true">
 			<Name>QuoteMarketCap</Name>
 			<Description>Market Cap (Quote)</Description>
 			<Information>
@@ -593,6 +611,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -642,7 +663,7 @@ Any inquiries can be addressed to:
 				<!-- /SuppressValidator 2.7.5 -->
 			</Display>
 			<Measurement>
-				<Type>table</Type>
+				<Type>string</Type>
 			</Measurement>
 		</Param>
 		<Param id="2500" trending="false">
@@ -661,7 +682,6 @@ Any inquiries can be addressed to:
 			</Interprete>
 			<Display>
 				<RTDisplay>true</RTDisplay>
-				<Decimals>3</Decimals>
 			</Display>
 			<Measurement>
 				<Type>string</Type>
@@ -707,9 +727,6 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
-			<Measurement>
-				<Type lines="30">string</Type>
-			</Measurement>
 		</Param>
 		
 		<Param id="3000">
@@ -721,12 +738,12 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="1" pid="3002" type="retrieved" options="" />
 				<ColumnOption idx="2" pid="3003" type="retrieved" options="" />
 				<ColumnOption idx="3" pid="3004" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="3005" type="retrieved" options="" />
-				<ColumnOption idx="5" pid="3006" type="retrieved" options="" />
-				<ColumnOption idx="6" pid="3007" type="retrieved" options="" />
-				<ColumnOption idx="7" pid="3008" type="retrieved" options="" />
-				<ColumnOption idx="8" pid="3009" type="retrieved" options="" />
-				<ColumnOption idx="9" pid="3010" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="3005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="3006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="6" pid="3007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="7" pid="3008" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="8" pid="3009" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="9" pid="3010" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="10" pid="3011" type="retrieved" options="" />
 				<ColumnOption idx="11" pid="3500" type="retrieved" options="" />
 			</ArrayOptions>
@@ -831,7 +848,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="3005" trending="false">
+		<Param id="3005" trending="true">
 			<Name>CategoriesNumTokens</Name>
 			<Description>Number of Tokens (Categories)</Description>
 			<Information>
@@ -843,6 +860,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -853,7 +873,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="3006" trending="false">
+		<Param id="3006" trending="true">
 			<Name>CategoriesAvgPriceChange</Name>
 			<Description>Avg Price Change (Categories)</Description>
 			<Information>
@@ -867,8 +887,10 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
-			<!-- SuppressValidator 2.11.1 This value is unbounded.
- -->
+			<!-- SuppressValidator 2.11.1 This value is unbounded.-->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -878,7 +900,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="3007" trending="false">
+		<Param id="3007" trending="true">
 			<Name>CategoriesMarketCap</Name>
 			<Description>Market Cap (Categories)</Description>
 			<Information>
@@ -892,6 +914,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -903,7 +928,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="3008" trending="false">
+		<Param id="3008" trending="true">
 			<Name>CategoriesMarketCapChange</Name>
 			<Description>Market Cap Change (Categories)</Description>
 			<Information>
@@ -918,6 +943,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -927,7 +955,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="3009" trending="false">
+		<Param id="3009" trending="true">
 			<Name>CategoriesVolume</Name>
 			<Description>Volume (Categories)</Description>
 			<Information>
@@ -941,6 +969,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -952,7 +983,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="3010" trending="false">
+		<Param id="3010" trending="true">
 			<Name>CategoriesVolumeChange</Name>
 			<Description>Volume Change (Categories)</Description>
 			<Information>
@@ -967,6 +998,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Decimals>3</Decimals>
@@ -996,7 +1030,7 @@ Any inquiries can be addressed to:
 				<Type options="date">number</Type>
 			</Measurement>
 		</Param>
-		<Param id="3500">
+		<Param id="3500" trending="false">
 			<Name>CategoriesRefreshButton</Name>
 			<Description>Refresh</Description>
 			<Type>write</Type>
@@ -1052,9 +1086,6 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
-			<Measurement>
-				<Type lines="30">string</Type>
-			</Measurement>
 		</Param>
 		
 		
@@ -1078,12 +1109,9 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
-			<Measurement>
-				<Type lines="30">string</Type>
-			</Measurement>
 		</Param>
 		
-		<Param id="450" trending="false">
+		<Param id="450" trending="true">
 			<Name>GlobalMetricsLatestActiveCryptocurrencies</Name>
 			<Description>Active Cryptocurrencies</Description>
 			<Information>
@@ -1098,6 +1126,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1116,7 +1147,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="451" trending="false">
+		<Param id="451" trending="true">
 			<Name>GlobalMetricsLatestTotalCryptocurrencies</Name>
 			<Description>Total Cryptocurrencies</Description>
 			<Information>
@@ -1131,6 +1162,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1149,7 +1183,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="452" trending="false">
+		<Param id="452" trending="true">
 			<Name>GlobalMetricsLatestActiveMarketPairs</Name>
 			<Description>Active Market Pairs</Description>
 			<Information>
@@ -1164,6 +1198,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1182,7 +1219,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="453" trending="false">
+		<Param id="453" trending="true">
 			<Name>GlobalMetricsLatestActiveExchanges</Name>
 			<Description>Active Exchanges</Description>
 			<Information>
@@ -1197,6 +1234,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1215,7 +1255,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="454" trending="false">
+		<Param id="454" trending="true">
 			<Name>GlobalMetricsLatestTotalExchanges</Name>
 			<Description>Total Exchanges</Description>
 			<Information>
@@ -1230,6 +1270,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.9.7 This value has no units. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1248,7 +1291,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="455" trending="false">
+		<Param id="455" trending="true">
 			<Name>GlobalMetricsLatestETHDominance</Name>
 			<Description>ETH Dominance</Description>
 			<Information>
@@ -1262,6 +1305,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1282,7 +1328,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="456" trending="false">
+		<Param id="456" trending="true">
 			<Name>GlobalMetricsLatestBTCDominance</Name>
 			<Description>BTC Dominance</Description>
 			<Information>
@@ -1296,6 +1342,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1316,7 +1365,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="457" trending="false">
+		<Param id="457" trending="true">
 			<Name>GlobalMetricsLatestETHDominanceYesterday</Name>
 			<Description>ETH Dominance Yesterday</Description>
 			<Information>
@@ -1330,6 +1379,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1350,7 +1402,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="458" trending="false">
+		<Param id="458" trending="true">
 			<Name>GlobalMetricsLatestBTCDominanceYesterday</Name>
 			<Description>BTC Dominance Yesterday</Description>
 			<Information>
@@ -1364,6 +1416,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1384,7 +1439,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="459" trending="false">
+		<Param id="459" trending="true">
 			<Name>GlobalMetricsLatestETHDominance24hPercentageChange</Name>
 			<Description>ETH Dominance Percentage Change (24H)</Description>
 			<Information>
@@ -1397,6 +1452,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -1414,7 +1472,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="460" trending="false">
+		<Param id="460" trending="true">
 			<Name>GlobalMetricsLatestBTCDominance24hPercentageChange</Name>
 			<Description>BTC Dominance Percentage Change (24H)</Description>
 			<Information>
@@ -1427,6 +1485,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -1444,7 +1505,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="461" trending="false">
+		<Param id="461" trending="true">
 			<Name>GlobalMetricsLatestDeFiVolume24h</Name>
 			<Description>Defi Volume (24H)</Description>
 			<Information>
@@ -1456,6 +1517,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1474,7 +1538,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="462" trending="false">
+		<Param id="462" trending="true">
 			<Name>GlobalMetricsLatestDeFiVolume24hReported</Name>
 			<Description>Defi Volume Reported (24H)</Description>
 			<Information>
@@ -1486,6 +1550,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1504,7 +1571,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="463" trending="false">
+		<Param id="463" trending="true">
 			<Name>GlobalMetricsLatestDeFiMarketCap</Name>
 			<Description>Defi Market Cap</Description>
 			<Information>
@@ -1516,6 +1583,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1534,7 +1604,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="464" trending="false">
+		<Param id="464" trending="true">
 			<Name>GlobalMetricsLatestDeFi24hPercentageChange</Name>
 			<Description>Defi Percentage Change (24H)</Description>
 			<Information>
@@ -1547,6 +1617,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -1564,7 +1637,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="465" trending="false">
+		<Param id="465" trending="true">
 			<Name>GlobalMetricsLatestStablecoinVolume24h</Name>
 			<Description>Stablecoin Volume (24H)</Description>
 			<Information>
@@ -1576,6 +1649,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1594,7 +1670,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="466" trending="false">
+		<Param id="466" trending="true">
 			<Name>GlobalMetricsLatestStablecoinVolume24hReported</Name>
 			<Description>Stablecoin Volume Reported (24H)</Description>
 			<Information>
@@ -1606,6 +1682,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1624,7 +1703,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="467" trending="false">
+		<Param id="467" trending="true">
 			<Name>GlobalMetricsLatestStablecoinMarketCap</Name>
 			<Description>Stablecoin Market Cap</Description>
 			<Information>
@@ -1636,6 +1715,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1654,7 +1736,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="468" trending="false">
+		<Param id="468" trending="true">
 			<Name>GlobalMetricsLatestStablecoin24hPercentageChange</Name>
 			<Description>Stablecoin 24H Percentage Change</Description>
 			<Information>
@@ -1667,6 +1749,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -1684,7 +1769,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="469" trending="false">
+		<Param id="469" trending="true">
 			<Name>GlobalMetricsLatestDerivativesVolume24h</Name>
 			<Description>Derivatives Volume (24H)</Description>
 			<Information>
@@ -1696,6 +1781,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1714,7 +1802,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="470" trending="false">
+		<Param id="470" trending="true">
 			<Name>GlobalMetricsLatestDerivativesVolume24hReported</Name>
 			<Description>Derivatives Volume Reported (24H)</Description>
 			<Information>
@@ -1726,6 +1814,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -1744,7 +1835,7 @@ Any inquiries can be addressed to:
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="471" trending="false">
+		<Param id="471" trending="true">
 			<Name>GlobalMetricsLatestDerivatives24hPercentageChange</Name>
 			<Description>Derivatives Percentage Change (24H)</Description>
 			<Information>
@@ -1757,6 +1848,9 @@ Any inquiries can be addressed to:
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -1964,7 +2058,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="482" trending="false">
+		<Param id="482" trending="true">
 			<Name>GlobalMetricsLatestLastUpdated</Name>
 			<Description>Last Updated</Description>
 			<Information>
@@ -1977,6 +2071,9 @@ Any inquiries can be addressed to:
 				<Decimals>8</Decimals>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Positions>
@@ -2111,12 +2208,12 @@ Any inquiries can be addressed to:
 			<Type>array</Type>
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="8001" type="retrieved" options=""/>
-				<ColumnOption idx="1" pid="8002" type="retrieved" options="" />
+				<ColumnOption idx="1" pid="8002" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="2" pid="8003" type="retrieved" options="" />
 				<ColumnOption idx="3" pid="8004" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="8005" type="retrieved" options="" />
-				<ColumnOption idx="5" pid="8006" type="retrieved" options="" />
-				<ColumnOption idx="6" pid="8007" type="retrieved" options="" />
+				<ColumnOption idx="4" pid="8005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="8006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="6" pid="8007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="7" pid="8008" type="retrieved" options="" />
 				<ColumnOption idx="8" pid="8009" type="retrieved" options="" />
 				<ColumnOption idx="9" pid="8010" type="retrieved" options="" />
@@ -2157,7 +2254,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="8002" trending="false">
+		<Param id="8002" trending="true">
 			<Name>ListingUSDCMCRank</Name>
 			<Description>CMC Rank (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2169,6 +2266,9 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Range>
@@ -2198,7 +2298,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="8004" trending="false">
+		<Param id="8004" trending="true">
 			<Name>ListingUSDPrice</Name>
 			<Description>Price (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2210,6 +2310,9 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
@@ -2217,7 +2320,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="8005" trending="false">
+		<Param id="8005" trending="true">
 			<Name>ListingUSDPercentChange1h</Name>
 			<Description>1H % (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2229,16 +2332,21 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Units>%</Units>
 				<Decimals>3</Decimals>
 			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="8006" trending="false">
+		<Param id="8006" trending="true">
 			<Name>ListingUSDPercentChange24h</Name>
 			<Description>24H % (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2250,16 +2358,21 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Units>%</Units>
 				<Decimals>3</Decimals>
 			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="8007" trending="false">
+		<Param id="8007" trending="true">
 			<Name>ListingUSDPercentChange7D</Name>
 			<Description>7D % (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2271,16 +2384,21 @@ Any inquiries can be addressed to:
 				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
+			<!-- SuppressValidator 2.11.1 This value is unbounded. -->
 			<Display>
 				<RTDisplay>true</RTDisplay>
 				<Units>%</Units>
 				<Decimals>3</Decimals>
 			</Display>
+			<!-- /SuppressValidator 2.11.1 -->
 			<Measurement>
 				<Type>number</Type>
 			</Measurement>
 		</Param>
-		<Param id="8008" trending="false">
+		<Param id="8008" trending="true">
 			<Name>ListingUSDMarketCap</Name>
 			<Description>Market Cap (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2296,6 +2414,9 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
@@ -2303,7 +2424,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="8009" trending="false">
+		<Param id="8009" trending="true">
 			<Name>ListingUSDVolume</Name>
 			<Description>Volume (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2317,6 +2438,9 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
@@ -2324,7 +2448,7 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 			</Measurement>
 		</Param>
-		<Param id="8010" trending="false">
+		<Param id="8010" trending="true">
 			<Name>ListingUSDCirculatingSupply</Name>
 			<Description>Circulating Supply (Listing [USD])</Description>
 			<Type>read</Type>
@@ -2338,6 +2462,9 @@ Any inquiries can be addressed to:
 				<Type>string</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
+			<Alarm>
+				<Monitored>true</Monitored>
+			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
 			</Display>
