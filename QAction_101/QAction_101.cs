@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Skyline.DataMiner.Scripting;
 using Skyline.DataMiner.Utils.Net.Http;
 using Skyline.DataMiner.Utils.SecureCoding.SecureSerialization.Json.Newtonsoft;
-using static QAction_1.CMCUtils;
+using static QAction_1.CmcUtils;
 
 /// <summary>
 /// DataMiner QAction Class: ParseResponse.
@@ -28,7 +28,7 @@ public static class QAction
             var httpStatusLine = SLHttpStatusLine.Parse((string)protocol.Httplistingsstatuscode_100);
             if (httpStatusLine.StatusCode != SLHttpStatusCode.OK)
             {
-                throw new CMCException($"Received invalid status code {httpStatusLine.StatusCode}");
+                throw new CmcException($"Received invalid status code {httpStatusLine.StatusCode}");
             }
 
             notAvailableValue = (double)protocol.Datanotavailablefixed__fixed;
@@ -37,32 +37,44 @@ public static class QAction
             var responseJson = (string)protocol.Httplistingscontent_101;
             var response = SecureNewtonsoftDeserialization.DeserializeObject<Response>(responseJson);
 
-            var dataRows = response.Data
-                .Select(ToListingQActionRow)
-                .ToArray();
-            var listingTable = protocol.listing;
-            listingTable.FillArray(listingTable.QActionRowsToObjectFillArray(dataRows));
-
-            var quoteRows = response.Data
-                .SelectMany(cryptocurrency => cryptocurrency.Quote
-                .Select(quote => ToQActionRow(quote.Value, cryptocurrency.Id.ToString(), quote.Key)))
-                .ToArray();
-            var quoteTable = protocol.quote;
-
-            quoteTable.FillArray(quoteTable.QActionRowsToObjectFillArray(quoteRows));
-
-            // ASSUMPTION: Quote always contains USD.
-            var listingUsdRows = response.Data
-                .Select(ToListingusdQActionRow)
-                .ToArray();
-            var listingUsdTable = protocol.listingusd;
-
-            listingUsdTable.FillArray(listingUsdTable.QActionRowsToObjectFillArray(listingUsdRows));
+            PopulateListingTable(protocol, response);
+            PopulateQuoteTable(protocol, response);
+            PopulateListingUsdTable(protocol, response);
         }
         catch (Exception ex)
         {
             protocol.Log($"QA{protocol.QActionID}|{protocol.GetTriggerParameter()}|Run|Exception thrown:{Environment.NewLine}{ex}", LogType.Error, LogLevel.NoLogging);
         }
+    }
+
+    private static void PopulateListingTable(SLProtocolExt protocol, Response response)
+    {
+        var dataRows = response.Data
+                    .Select(ToListingQActionRow)
+                    .ToArray();
+        var listingTable = protocol.listing;
+        listingTable.FillArray(listingTable.QActionRowsToObjectFillArray(dataRows));
+    }
+
+    private static void PopulateQuoteTable(SLProtocolExt protocol, Response response)
+    {
+        var quoteRows = response.Data
+                .SelectMany(cryptocurrency => cryptocurrency.Quote
+                .Select(quote => ToQActionRow(quote.Value, cryptocurrency.Id.ToString(), quote.Key)))
+                .ToArray();
+        var quoteTable = protocol.quote;
+        quoteTable.FillArray(quoteTable.QActionRowsToObjectFillArray(quoteRows));
+    }
+
+    private static void PopulateListingUsdTable(SLProtocolExt protocol, Response response)
+    {
+        // ASSUMPTION: Quote always contains USD.
+        var listingUsdRows = response.Data
+            .Select(ToListingusdQActionRow)
+            .ToArray();
+        var listingUsdTable = protocol.listingusd;
+
+        listingUsdTable.FillArray(listingUsdTable.QActionRowsToObjectFillArray(listingUsdRows));
     }
 
     private static ListingusdQActionRow ToListingusdQActionRow(Response.Listing dataEntry)
@@ -73,12 +85,12 @@ public static class QAction
             Listingusdid_8001 = dataEntry.Id.ToString(),
             Listingusdcmcrank_8002 = dataEntry.CmcRank ?? notAvailableValue,
             Listingusdname_8003 = dataEntry.Name,
-            Listingusdprice_8004 = quote.Price.HasValue ? $"${quote.Price}" : notAvailableValue.ToString(),
+            Listingusdprice_8004 = quote.Price.HasValue ? quote.Price : notAvailableValue,
             Listingusdpercentchange1h_8005 = quote.PercentChange1H ?? notAvailableValue,
             Listingusdpercentchange24h_8006 = quote.PercentChange24H ?? notAvailableValue,
             Listingusdpercentchange7d_8007 = quote.PercentChange7D ?? notAvailableValue,
-            Listingusdmarketcap_8008 = quote.MarketCap.HasValue ? $"${quote.MarketCap}" : notAvailableValue.ToString(),
-            Listingusdvolume_8009 = quote.Volume24H.HasValue ? $"${quote.Volume24H}" : notAvailableValue.ToString(),
+            Listingusdmarketcap_8008 = quote.MarketCap.HasValue ? quote.MarketCap : notAvailableValue,
+            Listingusdvolume_8009 = quote.Volume24H.HasValue ? quote.Volume24H : notAvailableValue,
             Listingusdcirculatingsupply_8010 = dataEntry.CirculatingSupply.HasValue ? $"{dataEntry.CirculatingSupply} {dataEntry.Symbol}" : notAvailableValue.ToString(),
         };
     }

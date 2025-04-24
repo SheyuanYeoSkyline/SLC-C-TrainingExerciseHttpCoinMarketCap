@@ -1,6 +1,7 @@
 using System;
 
 using Skyline.DataMiner.Scripting;
+using Skyline.DataMiner.Utils.Protocol.Extension;
 
 /// <summary>
 /// DataMiner QAction Class: RefreshCategory.
@@ -18,7 +19,7 @@ public static class QAction
             var refreshedId = protocol.RowKey();
             var httpRequestUrl = $"v1/cryptocurrency/category?id={refreshedId}";
             protocol.Httpcategoryrequesturl_349 = httpRequestUrl;
-            protocol.CheckTrigger(350); // Hard-coded trigger ID.
+            protocol.RunAction(350); // Hard-coded action ID to poll single category.
         }
         catch (Exception ex)
         {

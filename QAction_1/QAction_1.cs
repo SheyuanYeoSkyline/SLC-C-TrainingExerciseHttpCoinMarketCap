@@ -1,10 +1,12 @@
-using System;
-using Newtonsoft.Json;
-using Skyline.DataMiner.Scripting;
+// Ignore Spelling: Cmc Timestamp Utils
 
 namespace QAction_1
 {
-    public static class CMCUtils
+    using System;
+    using Newtonsoft.Json;
+    using Skyline.DataMiner.Scripting;
+
+    public static class CmcUtils
     {
         public static CategoriesQActionRow ToQActionRow(Category category)
         {
@@ -81,17 +83,17 @@ namespace QAction_1
             public string Notice { get; set; }
         }
 
-        public class CMCException : Exception
+        public class CmcException : Exception
         {
-            public CMCException()
+            public CmcException()
             {
             }
 
-            public CMCException(string message) : base(message)
+            public CmcException(string message) : base(message)
             {
             }
 
-            public CMCException(string message, Exception innerException) : base(message, innerException)
+            public CmcException(string message, Exception innerException) : base(message, innerException)
             {
             }
         }

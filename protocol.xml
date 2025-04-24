@@ -204,10 +204,10 @@ Any inquiries can be addressed to:
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type width="110">button</Type>
+				<Type width="150">button</Type>
 				<Discreets>
 					<Discreet>
-						<Display>Get Global Metrics Latest</Display>
+						<Display>Get Latest Global Metrics</Display>
 						<Value>0</Value>
 					</Discreet>
 				</Discreets>
@@ -263,7 +263,7 @@ Any inquiries can be addressed to:
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:1001|0-1004|3-1002|1-1003|2-1005|4-1006|5-1007|6,width:0-80-100-100-160-100-100,sort:STRING-INT|ASC-STRING-STRING-INT-INT-INT,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:1001|0-1004|3-1002|1-1003|2-1005|4-1006|5-1007|6,width:0-100-160-100-160-100-100,sort:STRING-INT|ASC-STRING-STRING-INT-INT-INT,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="1001" trending="false">
@@ -2210,12 +2210,12 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="0" pid="8001" type="retrieved" options=""/>
 				<ColumnOption idx="1" pid="8002" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="2" pid="8003" type="retrieved" options="" />
-				<ColumnOption idx="3" pid="8004" type="retrieved" options="" />
+				<ColumnOption idx="3" pid="8004" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="4" pid="8005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="5" pid="8006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="6" pid="8007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="7" pid="8008" type="retrieved" options="" />
-				<ColumnOption idx="8" pid="8009" type="retrieved" options="" />
+				<ColumnOption idx="7" pid="8008" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="8" pid="8009" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="9" pid="8010" type="retrieved" options="" />
 			</ArrayOptions>
 			<Information>
@@ -2232,7 +2232,7 @@ Any inquiries can be addressed to:
 				</Positions>
 			</Display>
 			<Measurement>
-				<Type options="tab=columns:8001|0-8002|1-8003|2-8004|3-8005|4-8006|5-8007|6-8008|7-8009|8-8010|9,width:0-80-100-160-80-80-80-160-160-160,sort:STRING-INT-STRING-STRING-STRING-STRING-STRING-STRING-STRING-STRING,lines:25,filter:true">table</Type>
+				<Type options="tab=columns:8001|0-8002|1-8003|2-8004|3-8005|4-8006|5-8007|6-8008|7-8009|8-8010|9,width:0-100-100-160-80-80-80-160-160-160,sort:STRING-INT-STRING-STRING-STRING-STRING-STRING-STRING-STRING-STRING,lines:25,filter:true">table</Type>
 			</Measurement>
 		</Param>
 		<Param id="8001" trending="false">
@@ -2306,8 +2306,8 @@ Any inquiries can be addressed to:
 				<Subtext>Price of the cryptocurrency in USD.</Subtext>
 			</Information>
 			<Interprete>
-				<RawType>other</RawType>
-				<Type>string</Type>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<Alarm>
@@ -2315,9 +2315,13 @@ Any inquiries can be addressed to:
 			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<!-- SuppressValidator 2.9.4 This is the correct units for this parameter. -->
+				<Units>USD</Units>
+				<!-- /SuppressValidator 2.9.4 -->
+				<Decimals>4</Decimals>
 			</Display>
 			<Measurement>
-				<Type>string</Type>
+				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="8005" trending="true">
@@ -2410,8 +2414,8 @@ Any inquiries can be addressed to:
 				</Subtext>
 			</Information>
 			<Interprete>
-				<RawType>other</RawType>
-				<Type>string</Type>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<Alarm>
@@ -2419,9 +2423,12 @@ Any inquiries can be addressed to:
 			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<!-- SuppressValidator 2.9.4 This is the correct units for this parameter. -->
+				<Units>USD</Units>
+				<!-- /SuppressValidator 2.9.4 -->
 			</Display>
 			<Measurement>
-				<Type>string</Type>
+				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="8009" trending="true">
@@ -2434,8 +2441,8 @@ Any inquiries can be addressed to:
 				</Subtext>
 			</Information>
 			<Interprete>
-				<RawType>other</RawType>
-				<Type>string</Type>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<Alarm>
@@ -2443,9 +2450,12 @@ Any inquiries can be addressed to:
 			</Alarm>
 			<Display>
 				<RTDisplay>true</RTDisplay>
+				<!-- SuppressValidator 2.9.4 This is the correct units for this parameter. -->
+				<Units>USD</Units>
+				<!-- /SuppressValidator 2.9.4 -->
 			</Display>
 			<Measurement>
-				<Type>string</Type>
+				<Type>number</Type>
 			</Measurement>
 		</Param>
 		<Param id="8010" trending="true">
@@ -2623,13 +2633,6 @@ Any inquiries can be addressed to:
 				<Id>400</Id>
 			</Content>
 		</Trigger>
-		<Trigger id="350">
-			<Name>GetCategory</Name>
-			<Type>action</Type>
-			<Content>
-				<Id>350</Id>
-			</Content>
-		</Trigger>
 	</Triggers>
 
 	<Actions>
@@ -2646,7 +2649,7 @@ Any inquiries can be addressed to:
 		<Action id="350">
 			<Name>GetCryptocurrencyCategory</Name>
 			<On id="350">group</On>
-			<Type>execute</Type>
+			<Type>execute next</Type>
 		</Action>
 		<Action id="400">
 			<Name>GetGlobalMetricsLatest</Name>

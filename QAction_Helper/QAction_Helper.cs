@@ -710,7 +710,7 @@ public class WriteParameters
 	public System.Object Getlistings {get { return Protocol.GetParameter(10); }set { Protocol.SetParameter(10, value); }}
 	/// <summary>PID: 30  | Type: write | DISCREETS: Get Categories = 0</summary>
 	public System.Object Getcryptocurrencycategories {get { return Protocol.GetParameter(30); }set { Protocol.SetParameter(30, value); }}
-	/// <summary>PID: 40  | Type: write | DISCREETS: Get Global Metrics Latest = 0</summary>
+	/// <summary>PID: 40  | Type: write | DISCREETS: Get Latest Global Metrics = 0</summary>
 	public System.Object Getglobalmetricslatest {get { return Protocol.GetParameter(40); }set { Protocol.SetParameter(40, value); }}
 	/// <summary>PID: 51  | Type: write</summary>
 	public System.Object Apikey {get { return Protocol.GetParameter(51); }set { Protocol.SetParameter(51, value); }}
@@ -941,9 +941,9 @@ public class ConcreteSLProtocolExt : ConcreteSLProtocol, SLProtocolExt
 	public System.Object Getcryptocurrencycategories_30 {get { return GetParameter(30); }set { SetParameter(30, value); }}
 	/// <summary>PID: 30  | Type: write | DISCREETS: Get Categories = 0</summary>
 	public System.Object Getcryptocurrencycategories {get { return Write.Getcryptocurrencycategories; }set { Write.Getcryptocurrencycategories = value; }}
-	/// <summary>PID: 40  | Type: write | DISCREETS: Get Global Metrics Latest = 0</summary>
+	/// <summary>PID: 40  | Type: write | DISCREETS: Get Latest Global Metrics = 0</summary>
 	public System.Object Getglobalmetricslatest_40 {get { return GetParameter(40); }set { SetParameter(40, value); }}
-	/// <summary>PID: 40  | Type: write | DISCREETS: Get Global Metrics Latest = 0</summary>
+	/// <summary>PID: 40  | Type: write | DISCREETS: Get Latest Global Metrics = 0</summary>
 	public System.Object Getglobalmetricslatest {get { return Write.Getglobalmetricslatest; }set { Write.Getglobalmetricslatest = value; }}
 	/// <summary>PID: 51  | Type: write</summary>
 	[EditorBrowsable(EditorBrowsableState.Never)]
