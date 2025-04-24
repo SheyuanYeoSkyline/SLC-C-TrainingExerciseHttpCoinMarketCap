@@ -245,9 +245,9 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="1" pid="1002" type="retrieved" options="" />
 				<ColumnOption idx="2" pid="1003" type="retrieved" options="" />
 				<ColumnOption idx="3" pid="1004" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="1005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="5" pid="1006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="6" pid="1007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="4" pid="1005" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="1006" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="6" pid="1007" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>tableInformation</Subtext>
@@ -441,11 +441,11 @@ Any inquiries can be addressed to:
 			<ArrayOptions index="0">
 				<NamingFormat>,1002, (,2008,)</NamingFormat>
 				<ColumnOption idx="0" pid="2001" type="retrieved" options=""/>
-				<ColumnOption idx="1" pid="2002" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="2" pid="2003" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="3" pid="2004" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="4" pid="2005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="5" pid="2006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="1" pid="2002" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="2" pid="2003" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="3" pid="2004" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="4" pid="2005" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="2006" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="6" pid="2007" type="retrieved" options="" />
 				<ColumnOption idx="7" pid="2008" type="retrieved" options="" />
 				<ColumnOption idx="8" pid="2500" type="retrieved" options=";foreignKey=1000" />
@@ -738,12 +738,12 @@ Any inquiries can be addressed to:
 				<ColumnOption idx="1" pid="3002" type="retrieved" options="" />
 				<ColumnOption idx="2" pid="3003" type="retrieved" options="" />
 				<ColumnOption idx="3" pid="3004" type="retrieved" options="" />
-				<ColumnOption idx="4" pid="3005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="5" pid="3006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="6" pid="3007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="7" pid="3008" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="8" pid="3009" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="9" pid="3010" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="4" pid="3005" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="3006" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="6" pid="3007" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="7" pid="3008" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="8" pid="3009" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="9" pid="3010" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="10" pid="3011" type="retrieved" options="" />
 				<ColumnOption idx="11" pid="3500" type="retrieved" options="" />
 			</ArrayOptions>
@@ -2208,15 +2208,15 @@ Any inquiries can be addressed to:
 			<Type>array</Type>
 			<ArrayOptions index="0">
 				<ColumnOption idx="0" pid="8001" type="retrieved" options=""/>
-				<ColumnOption idx="1" pid="8002" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="1" pid="8002" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
 				<ColumnOption idx="2" pid="8003" type="retrieved" options="" />
-				<ColumnOption idx="3" pid="8004" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="4" pid="8005" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="5" pid="8006" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="6" pid="8007" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="7" pid="8008" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="8" pid="8009" type="retrieved" options=";enableHeaderSum;enableHistogram;enableHeatmap" />
-				<ColumnOption idx="9" pid="8010" type="retrieved" options="" />
+				<ColumnOption idx="3" pid="8004" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="4" pid="8005" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="5" pid="8006" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="6" pid="8007" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="7" pid="8008" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="8" pid="8009" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
+				<ColumnOption idx="9" pid="8010" type="retrieved" options=";disableHeaderSum;enableHistogram;enableHeatmap" />
 			</ArrayOptions>
 			<Information>
 				<Subtext>Display of listings in USD.</Subtext>
@@ -2468,8 +2468,8 @@ Any inquiries can be addressed to:
 				</Subtext>
 			</Information>
 			<Interprete>
-				<RawType>other</RawType>
-				<Type>string</Type>
+				<RawType>numeric text</RawType>
+				<Type>double</Type>
 				<LengthType>next param</LengthType>
 			</Interprete>
 			<Alarm>
@@ -2479,7 +2479,7 @@ Any inquiries can be addressed to:
 				<RTDisplay>true</RTDisplay>
 			</Display>
 			<Measurement>
-				<Type>string</Type>
+				<Type>number</Type>
 			</Measurement>
 		</Param>
 		
